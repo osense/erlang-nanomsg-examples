@@ -14,8 +14,8 @@ fn main() {
     let mut request = String::new();
     loop {
         println!("Waiting for a message");
-        assert!(socket.read_to_string(&mut request).is_ok());
-        println!("Received {}", request);
+        socket.read_to_string(&mut request).unwrap();
+        println!("Received '{}'", request);
 
         match request.as_ref() {
             "PING" => {
@@ -32,11 +32,11 @@ fn main() {
         request.clear(); 
     }
 
-    assert!(endpoint.shutdown().is_ok());
+    endpoint.shutdown().unwrap();
 }
 
 fn reply(socket: &mut Socket, reply: &str) {
-    assert!(socket.write_all(reply.as_bytes()).is_ok());
+    socket.write_all(reply.as_bytes()).unwrap();
     println!("Replied with '{}'", reply)
 }
 
