@@ -21,10 +21,9 @@ send_expect(Send, Expect, Socket) ->
     ok = enm:send(Socket, Send),
 
     receive
-        {nnreq, Socket, Message} -> 
-            Unexpected = if Message =:= Expect -> "";
-                            true -> " UNEXPECTED"
-                         end,
-            io:format("Received~s '~s'~n", [Unexpected, Expect])
+        {nnreq, Socket, Expect} -> 
+            io:format("Received '~s'~n", [Expect]);
+        {nnreq, Socket, Other} -> 
+            io:format("Received UNEXPECTED '~s'~n", [Other])
     end.
 
