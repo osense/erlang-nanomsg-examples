@@ -1,0 +1,7 @@
+[package]
+name = "rust"
+version = "0.1.0"
+authors = ["osense <krupicka.adam@gmail.com>"]
+
+[dependencies]
+nanomsg = "^0.4.0"
