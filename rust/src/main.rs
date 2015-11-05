@@ -14,7 +14,7 @@ fn main() {
     let mut request = String::new();
     loop {
         println!("Waiting for a message");
-        socket.read_to_string(&mut request).unwrap();
+        socket.read_to_string(&mut request).expect("Failed to read request");
         println!("Received '{}'", request);
 
         match request.as_ref() {
@@ -32,11 +32,11 @@ fn main() {
         request.clear(); 
     }
 
-    endpoint.shutdown().unwrap();
+    endpoint.shutdown().expect("Failed to shutdown gracefully");
 }
 
 fn reply(socket: &mut Socket, reply: &str) {
-    socket.write_all(reply.as_bytes()).unwrap();
+    socket.write_all(reply.as_bytes()).expect("Failed to send reply");
     println!("Replied with '{}'", reply)
 }
 
